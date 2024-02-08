@@ -22,7 +22,10 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                    -Dsonar.projectKey=Netflix'''
+                      -Dsonar.projectKey=Netflix \
+                      -Dsonar.sources=. \
+                      -Dsonar.host.url=http://192.168.80.145:9000 \
+                      -Dsonar.login=sqp_bbdccbc66d7bbea8dca807cfb1551ac4da8ca6d5'''
                     
                 }
             }
