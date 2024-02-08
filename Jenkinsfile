@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: ''
+                git branch: 'main', url: 'https://github.com/C1-80417/netflix.git'
             }
         }
         stage("Sonarqube Analysis") {
