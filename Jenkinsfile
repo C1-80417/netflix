@@ -25,7 +25,7 @@ pipeline {
                       -Dsonar.projectKey=Netflix \
                       -Dsonar.sources=. \
                       -Dsonar.host.url=http://192.168.80.145:9000 \
-                      -Dsonar.login=sqp_bbdccbc66d7bbea8dca807cfb1551ac4da8ca6d5'''
+                      -Dsonar.login=squ_163fb02b406a14fa7cb1ba9ae0776b3d70412f0f'''
                     
                 }
             }
