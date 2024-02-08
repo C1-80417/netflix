@@ -15,14 +15,15 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/C1-80417/netflix.git'
+                git branch: 'main', url: ''
             }
         }
         stage("Sonarqube Analysis") {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                      -Dsonar.projectKey=Netflix \
+                    -Dsonar.projectKey=Netflix'''
+                    
                 }
             }
         }
@@ -39,4 +40,4 @@ pipeline {
             }
         }
     }
-
+}
