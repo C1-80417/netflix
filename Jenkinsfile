@@ -15,14 +15,17 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/N4si/DevSecOps-Project.git'
+                git branch: 'main', url: ''
             }
         }
         stage("Sonarqube Analysis") {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                    -Dsonar.projectKey=Netflix'''
+                      -Dsonar.projectKey=Netflix \
+                      -Dsonar.sources=. \
+                      -Dsonar.host.url=http://192.168.80.145:9000 \
+                      -Dsonar.login=sqp_85f0bc4093a2545cf15445411ad8c36802784dad    
                 }
             }
         }
