@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/N4si/DevSecOps-Project.git'
+                git branch: 'main', url: 'https://github.com/C1-80417/projectfile'
             }
         }
         stage("Sonarqube Analysis") {
@@ -58,7 +58,7 @@ pipeline {
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image nasi101/netflix:latest > trivyimage.txt" 
+                sh "trivy image amitr999/netflix:latest > trivyimage.txt" 
             }
         }
         stage('Deploy to container'){
