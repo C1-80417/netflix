@@ -1,4 +1,4 @@
-Jenkinsfile
+
 pipeline {
     agent any
     tools {
@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/C1-80417/netflix.git'
+                git branch: 'main', url: 'https://github.com/N4si/DevSecOps-Project.git'
             }
         }
         stage("Sonarqube Analysis") {
@@ -26,12 +26,11 @@ pipeline {
                       -Dsonar.projectKey=Netflix \
                       -Dsonar.sources=. \
                       -Dsonar.host.url=http://192.168.80.145:9000 \
-                      -Dsonar.login=squ_163fb02b406a14fa7cb1ba9ae0776b3d70412f0f'''
+                      -Dsonar.login=squ_1afbbeefd7e2b977812866aba4bce58d2e66c9d3'''
                     
                 }
             }
         }
-     
         stage("quality gate"){
            steps {
                 script {
@@ -44,7 +43,9 @@ pipeline {
                 sh "npm install"
             }
         }
- 
+
+
+        
         stage('OWASP FS SCAN') {
             steps {
                 dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
@@ -60,7 +61,7 @@ pipeline {
             steps{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                       sh "docker build --build-arg TMDB_V3_API_KEY=df7beb5dee384affd8d95785ca799440 -t netflix ."
+                       sh "docker build --build-arg TMDB_V3_API_KEY=3bb80969f58241de327a505e5e77383c -t netflix ."
                        sh "docker tag netflix nasi101/netflix:latest "
                        sh "docker push nasi101/netflix:latest "
                     }
