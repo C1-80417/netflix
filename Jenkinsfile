@@ -23,16 +23,17 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                      -Dsonar.projectKey=Netflix \
-                      -Dsonar.sources=. \
-                      -Dsonar.host.url=http://192.168.80.145:9000 \
-                      -Dsonar.login=squ_03df5b0cfd3d3b9676c99eb05ac410840e14d69f'''
+                      -Dsonar.projectKey=Netflix \'''
                     
                 }
             }
         }
-      
-        
+
+        stage('Install Dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }
         stage('OWASP FS SCAN') {
             steps {
                 dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
