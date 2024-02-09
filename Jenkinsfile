@@ -26,13 +26,23 @@ pipeline {
                       -Dsonar.projectKey=Netflix \
                       -Dsonar.sources=. \
                       -Dsonar.host.url=http://192.168.80.145:9000 \
-                      -Dsonar.login=squ_163fb02b406a14fa7cb1ba9ae0776b3d70412f0f'''
+                      -Dsonar.login=squ_1afbbeefd7e2b977812866aba4bce58d2e66c9d3'''
                     
                 }
             }
         }
-     
-
+        stage("quality gate"){
+           steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
+                }
+            } 
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }
 
 
         
