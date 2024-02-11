@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/C1-80417/projectfile'
+                git branch: 'main', url: 'https://github.com/N4si/DevSecOps-Project.git'
             }
         }
         stage("Sonarqube Analysis") {
@@ -28,7 +28,13 @@ pipeline {
                 }
             }
         }
-
+        stage("quality gate"){
+           steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
+                }
+            } 
+        }
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
